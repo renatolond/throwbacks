@@ -1,0 +1,24 @@
+{
+  "name": "throwbacks",
+  "version": "0.0.0",
+  "description": "Make spotify playlists based on your last.fm scrobbles from the past",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tamarasaurus/throwbacks.git"
+  },
+  "keywords": [
+    "lastfm",
+    "spotify",
+    "scrobble"
+  ],
+  "author": "Tamara Chahine",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tamarasaurus/throwbacks/issues"
+  },
+  "homepage": "https://github.com/tamarasaurus/throwbacks"
+}
