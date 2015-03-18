@@ -8,12 +8,13 @@ module.exports = (function(){
 
 	var app = function(){
 		this.apiKey = config.apiKey;
+		this.host = config.host;
 		this.apiURL = 'http://ws.audioscrobbler.com/2.0/';
 	};
 
 	app.prototype = {
 		getRecentTracks: function(username, startDate, endDate, cb) { 
-			var url = this.apiURL
+			var url = this.apiURL;
 			request
 			  .get(url)
 			  .query({
@@ -22,10 +23,23 @@ module.exports = (function(){
 			  	user: username,
 			  	api_key: this.apiKey,
 			  	format: 'json',
-			  	extended: 1
+			  	extended: 1,
+			  	from: startDate,
+			  	to: endDate
 			  })
 			  .end(cb);
 		},
+		// Get spotify uris from tracks
+		getSpotifyURI: function(title, cb) {
+			request.get('https://api.spotify.com/v1/search')
+			.query({
+				q: title,
+				type: 'track',
+				limit: 1,
+			})
+			.end(cb);
+		},
+
 		getTopTracks: function(tracks) {
 			// var data = this.dummy.recenttracks.track;
 			var data = tracks;
@@ -43,14 +57,16 @@ module.exports = (function(){
 			 	response.push(obj);
 			 });
 	
-			loved = _.sortBy(response, function(track) {
+			var loved = _.sortBy(response, function(track) {
 				return -parseInt(track.loved);
 			});
+
+			// Return url for each one
 
 			return loved;
 		}
 
-	}
+	};
 
 	return app;
 
