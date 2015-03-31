@@ -84,15 +84,17 @@ app.use('/from/:startDate/to/:endDate/for/:username', function(req, res) {
       res.send(err);
     }
   
-
     data = JSON.parse(data.text);
-    data = tb.getTopTracks(data.recenttracks.track);
-
-    res.json({
-      recenttracks: {
-        track: data
-      }
+    
+    // Pass in errors as well
+    tb.getTopTracks(data.recenttracks.track, function(results) {
+    	res.json({
+    	  recenttracks: {
+    	    track: results
+    	  }
+    	});
     });
+
   });
 
 

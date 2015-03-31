@@ -3,6 +3,7 @@
 var config = require('./config');
 var request = require('superagent');
 var _ = require('underscore');
+var async = require('async');
 
 module.exports = (function(){
 
@@ -30,17 +31,25 @@ module.exports = (function(){
 			  .end(cb);
 		},
 		// Get spotify uris from tracks
-		getSpotifyURI: function(title, cb) {
+		getSpotifyURI: function(track, cb) {
 			request.get('https://api.spotify.com/v1/search')
 			.query({
-				q: title,
+				q: track.name,
 				type: 'track',
 				limit: 1,
 			})
-			.end(cb);
+			.end(function(err, data) {
+				data = JSON.parse(data.text);
+				var item = {}
+				if(data.tracks.items && data.tracks.items.length > 0) {
+					item = data.tracks.items[0]
+				}
+				track.uri = item.uri;
+				cb(null, track);
+			});
 		},
 
-		getTopTracks: function(tracks) {
+		getTopTracks: function(tracks, cb) {
 			// var data = this.dummy.recenttracks.track;
 			var data = tracks;
 			var counted = _.chain(data)
@@ -61,9 +70,12 @@ module.exports = (function(){
 				return -parseInt(track.loved);
 			});
 
-			// Return url for each one
+			async.map(loved, this.getSpotifyURI, function(err, results){
+				if(err) return [];
+				console.log(results);
+				cb(results);
+			});
 
-			return loved;
 		}
 
 	};
