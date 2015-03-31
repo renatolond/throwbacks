@@ -40,7 +40,7 @@ module.exports = (function(){
 			})
 			.end(function(err, data) {
 				data = JSON.parse(data.text);
-				var item = {}
+				var item = { uri: null }
 				if(data.tracks.items && data.tracks.items.length > 0) {
 					item = data.tracks.items[0]
 				}
