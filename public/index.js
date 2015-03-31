@@ -21,7 +21,7 @@ $(document).ready(function() {
 	};
 
 	var getTracks = function(data, cb) {
-		var url = 'http://localhost:3000/from/' + data.start + '/to/' + data.end + '/for/' + data.username;
+		var url = 'http://localhost:8888/from/' + data.start + '/to/' + data.end + '/for/' + data.username;
 		$.ajax({
 			type: 'GET',
 			url: url,

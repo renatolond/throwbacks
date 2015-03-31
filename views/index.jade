@@ -1,0 +1,23 @@
+doctype html
+html
+  head
+    title throwbacks
+    link(rel='stylesheet', type='text/css', href='style.css')
+  body
+    form
+      input#username(type='text', name='username', placeholder='Last.fm username')
+      //- Switch to input type date
+      input#start(type='text', name='start', placeholder='Start date')
+      input#end(type='text', name='end', placeholder='End date')
+      button(type='submit') Get
+
+      if !user
+        h2 Please log in
+        a(href='/auth/spotify') Login with Spotify
+      else 
+        strong= user.username
+
+    ul
+  script(type='text/javascript', src='https://code.jquery.com/jquery-2.1.3.min.js')
+  script(type='text/javascript', src='pikaday.js')
+  script(type='text/javascript', src='index.js')
