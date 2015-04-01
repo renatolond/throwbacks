@@ -33,16 +33,22 @@ module.exports = (function(){
 			  .set('content-type', 'application/json')
 			  .set('Authorization', 'Bearer '+token)
 			  .end(function(err, data){
-			  	_this.addSongsToPlaylist(data.body, tracks, res);
+			  	_this.addSongsToPlaylist(data.body, tracks, userid, res, token);
 			  });
 			
 		},
 
-		addSongsToPlaylist: function(playlist, tracks, res) {
+		addSongsToPlaylist: function(playlist, tracks, userid, res, token) {
 			var trackList = tracks.join();
-			console.log(trackList);
 			res.json(playlist);
-			// return tracks.join(',');
+
+			request
+			  .post('https://api.spotify.com/v1/users/'+userid+'/playlists/'+playlist.id+'/tracks?uris='+trackList)
+			  .set('Authorization', 'Bearer '+token)
+			  .end(function(err, data){
+			  	console.log(err, data);
+			  	//res.json(data)
+			  });
 		},
 
 		getRecentTracks: function(username, startDate, endDate, cb) { 

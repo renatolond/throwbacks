@@ -5,16 +5,17 @@ html
     link(rel='stylesheet', type='text/css', href='style.css')
   body
     form
-      input#username(type='text', name='username', placeholder='Last.fm username')
-      //- Switch to input type date
-      input#start(type='text', name='start', placeholder='Start date')
-      input#end(type='text', name='end', placeholder='End date')
-      button(type='submit') Get
-
+     
       if !user
         h2 Please log in
         a(href='/auth/spotify') Login with Spotify
       else 
+        input#username(type='text', name='username', placeholder='Last.fm username')
+        //- Switch to input type date
+        input#start(type='text', name='start', placeholder='Start date')
+        input#end(type='text', name='end', placeholder='End date')
+        button(type='submit') Get
+
         strong= user.username
         button.random Create random playlist
         button.top20 Create top 20 playlist

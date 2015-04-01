@@ -124,7 +124,7 @@ app.use('/make/playlist', function(req, res) {
 	var token = req.user.accessToken;
 
 
-	tb.makePlaylist(name, tracks, userid, token);
+	tb.makePlaylist(name, tracks, userid, token, res);
 	// Make playlist from tracks
 	// Return id of the playlist
 })
