@@ -140,13 +140,17 @@ $(document).ready(function() {
 		  type: 'POST',
 		  dataType: 'json'
 		}).done(function(data) {
-		  console.log(data);
+			console.log(data);
+			renderPlaylist(data.uri);
 		});
 
 		// ajax post to server, server returns the code and the playlist ID
 	}
 
-	var renderPlaylist = function(id) {
+	var renderPlaylist = function(uri) {
+		if(!uri) return;
+		var string = '<iframe src="https://embed.spotify.com/?uri='+uri+'" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>';
+		$('.playlist').html(string);
 		// get the playlist ID and embed it in the page
 	}
 
