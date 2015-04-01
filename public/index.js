@@ -80,12 +80,22 @@ $(document).ready(function() {
 			return !!track.uri;
 		});
 		random = _.sample(_.pluck(random, 'uri'), 20);
-		console.log('chooseRandomTracks', random)
 		return random;
 	}
 
 	var chooseTopTracks = function(tracks) {
 		console.log('chooseTopTracks', tracks)
+		tracks = tracks.recenttracks.track;
+		tracks = _.filter(tracks, function(track){
+			return !!track.uri;
+		});
+		tracks = _.pluck(tracks, 'uri');
+
+		if(tracks.length > 20) {
+			return tracks.slice(0, 20);
+		}else {
+			return tracks;
+		}
 	}
 
 	var getMonth = function(date) {
@@ -153,9 +163,10 @@ $(document).ready(function() {
 			var name = makePlaylistName('random');
 
 			makePlaylist(tracks, name)
-			console.log(name);
 		}else {
-			chooseTopTracks(window.tracks)
+			var tracks = chooseTopTracks(window.tracks);
+			var name = makePlaylistName('top');
+			makePlaylist(tracks, name)
 		}
 	})
 });

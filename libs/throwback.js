@@ -69,9 +69,11 @@ module.exports = (function(){
 		},
 		// Get spotify uris from tracks
 		getSpotifyURI: function(track, cb) {
+			console.log('track:'+track.name+' artist:'+track.artist.name);
 			request.get('https://api.spotify.com/v1/search')
 			.query({
-				q: track.name,
+				// Pass in the artist name too here!
+				q: 'track:'+track.name.toString()+' artist:'+track.artist.name.toString(),
 				type: 'track',
 				limit: 1,
 			})
