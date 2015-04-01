@@ -47,6 +47,9 @@ app.set('view engine', 'jade');
 
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(methodOverride());
 app.use(session({ secret: 'keyboard cat', saveUninitialized: true, resave: true }));
 app.use(passport.initialize());
@@ -103,12 +106,28 @@ app.use('/from/:startDate/to/:endDate/for/:username', function(req, res) {
 app.use('/get/:track_title', function(req, res){
   var title = req.params.track_title;
   tb.getSpotifyURI(title, function(err, data){
+  	console.log('Getting URI for ', title)
     if(err) {
       res.send(err);
     }
     res.json(JSON.parse(data.text));
   });
 });
+
+app.use('/make/playlist', function(req, res) {
+	if(!req.user) res.send('No user');
+	console.log(req.user.id);
+
+	var name = req.body.name;
+	var tracks = req.body.tracks;
+	var userid = req.user.id;
+	var token = req.user.accessToken;
+
+
+	tb.makePlaylist(name, tracks, userid, token);
+	// Make playlist from tracks
+	// Return id of the playlist
+})
 
 app.listen(8888);
 

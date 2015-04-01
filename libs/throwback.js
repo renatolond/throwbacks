@@ -14,6 +14,37 @@ module.exports = (function(){
 	};
 
 	app.prototype = {
+		makePlaylist: function(name, tracks, userid, token, res) {
+			var _this = this;
+			console.log('POST TO', 'https://api.spotify.com/v1/users/{user_id}/playlists')
+			console.log('POST TO ', 'https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks?uris={uris}');
+			console.log(name, userid, token);
+			console.log('')
+			console.log('http://api.spotify.com/v1/users/'+userid+'/playlists')
+			
+			var data = JSON.stringify({
+			  	name: name,
+			  	"public": false
+			  });
+				
+			request
+			  .post( 'https://api.spotify.com/v1/users/'+userid+'/playlists')
+			  .send(data)
+			  .set('content-type', 'application/json')
+			  .set('Authorization', 'Bearer '+token)
+			  .end(function(err, data){
+			  	_this.addSongsToPlaylist(data.body, tracks, res);
+			  });
+			
+		},
+
+		addSongsToPlaylist: function(playlist, tracks, res) {
+			var trackList = tracks.join();
+			console.log(trackList);
+			res.json(playlist);
+			// return tracks.join(',');
+		},
+
 		getRecentTracks: function(username, startDate, endDate, cb) { 
 			var url = this.apiURL;
 			request

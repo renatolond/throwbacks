@@ -45,6 +45,7 @@ $(document).ready(function() {
 			getTracks(formData, function(res) {
 				console.log(res);
 				clearTracks();
+				window.tracks = res;
 
 				for (var i = 0; i < res.recenttracks.track.length; i++) {
 					var track = res.recenttracks.track[i];
@@ -73,11 +74,88 @@ $(document).ready(function() {
 		onSelect: setDate
 	});
 
-	// https://accounts.spotify.com/authorize?client_id=5fe01282e94241328a84e7c5cc169164&redirect_uri=http:%2F%2Fexample.com%2Fcallback&scope=user-read-private%20user-read-email&response_type=token&state=123
+	var chooseRandomTracks = function(tracks) {
+		tracks = tracks.recenttracks.track;
+		var random = _.filter(tracks, function(track){
+			return !!track.uri;
+		});
+		random = _.sample(_.pluck(random, 'uri'), 20);
+		console.log('chooseRandomTracks', random)
+		return random;
+	}
+
+	var chooseTopTracks = function(tracks) {
+		console.log('chooseTopTracks', tracks)
+	}
+
+	var getMonth = function(date) {
+		var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		return months[new Date(parseInt(date)*1000).getMonth()];
+	}
+
+	var getYear = function(date) {
+		return new Date(parseInt(date)*1000).getFullYear();
+	}
+
+	var makePlaylistName = function(type) {
+		var startVal = $('#start').val();
+		var endVal = $('#end').val();
+		var dates = {
+			fromMonth: getMonth(startVal),
+			toMonth: getMonth(endVal),
+			fromYear: getYear(startVal),
+			toYear: getYear(endVal)
+		}
+
+		var yearIsSame = (dates.fromYear === dates.toYear);
+		var monthIsSame = (dates.fromMonth === dates.toMonth);
+
+		var fromMonth = (yearIsSame ? dates.fromMonth : dates.fromMonth + ' ' + dates.fromYear);
+		var toMonth = (yearIsSame ? dates.toMonth : dates.toMonth + ' ' + dates.toYear);
+
+		var dateString = (monthIsSame ? fromMonth : fromMonth + ' to ' + toMonth) + ' ' + (yearIsSame ? dates.fromYear : '');
+		var name = 'Throwbacks - ' + dateString + ' ('+type+')';
+		return name;
+	}
+
+	var makePlaylist = function(tracks, name) {
+		console.log(tracks, name);
+		$.ajax({
+		  url: "http://localhost:8888/make/playlist",
+		  contentType: 'application/json',
+		  data: JSON.stringify({
+		  	tracks: tracks,
+		  	name: name
+		  }),
+		  type: 'POST',
+		  dataType: 'json'
+		}).done(function(data) {
+		  console.log(data);
+		});
+
+		// ajax post to server, server returns the code and the playlist ID
+	}
+
+	var renderPlaylist = function(id) {
+		// get the playlist ID and embed it in the page
+	}
 
 
 	$('form').on('submit', function(e) {
 		e.preventDefault();
 		return false;
 	});
+
+	$('button').on('click', function(e){
+		e.preventDefault();
+		if($(e.currentTarget).hasClass('random')) {
+			var tracks = chooseRandomTracks(window.tracks);
+			var name = makePlaylistName('random');
+
+			makePlaylist(tracks, name)
+			console.log(name);
+		}else {
+			chooseTopTracks(window.tracks)
+		}
+	})
 });
