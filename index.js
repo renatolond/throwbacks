@@ -2,6 +2,7 @@ var Throwback = require('./libs/throwback');
 var tb = new Throwback();
 var serveStatic = require('serve-static');
 var config = require('./libs/config');
+var livereload = require('express-livereload');
 
 var express = require('express'),
     bodyParser = require('body-parser'),
@@ -56,6 +57,14 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(serveStatic(__dirname + '/public'));
+
+
+var lr = livereload(app, {watchDir: __dirname + '/public'});
+console.log(lr);
+
+lr.on('changed', function() {
+  console.log('LR Changed public folder')
+})
 
 app.get('/', function(req, res){
   res.render('index', { user: req.user });
