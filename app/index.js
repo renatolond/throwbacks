@@ -15,14 +15,10 @@ var App = Backbone.View.extend({
 		console.log('render app test');
 	},
 	renderLastfm: function() {
-		var $container = $('.lastfm', this.$el);
-		if( $container.length > 0 ) {
-			lastfm = new lastfmView({
-				el: $container.get(0)
-			});
-
-			lastfm.render();
-		}
+		var lastfm = new lastfmView({
+			el: $('.lastfm', this.$el)
+		});
+		lastfm.render();
 	}
 });
 

@@ -128,8 +128,11 @@ app.use('/user/:username/exists', function(req, res) {
   if(req.params.username) {
     console.log(req.params.username);
     
-     tb.userExists(req.params.username, function(exists) {
-      return res.json(exists);
+     tb.userExists(req.params.username, function(exists, body) {
+      return res.json({
+        isValid: exists,
+        user: body.user || {}
+      });
      });
   }
   

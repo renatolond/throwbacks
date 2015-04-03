@@ -135,7 +135,7 @@ module.exports = (function(){
 			  .end(function(err, data) {
 			  	if(err) return cb(false);
 			  	var isValid = _this.userValid(data.body);
-			  	return cb(isValid);
+			  	return cb(isValid, data.body);
 			  });
 		}
 
