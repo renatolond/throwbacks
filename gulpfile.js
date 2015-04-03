@@ -6,6 +6,7 @@ var streamify = require('gulp-streamify');
 var watchify = require('watchify');
 var sass = require('gulp-sass');
 var jsFile = './app/app.js';
+var concat = require('gulp-concat');
 
 var scriptCompile = function() {
 	var bundle = watchify(browserify(jsFile, {
@@ -30,7 +31,14 @@ var scriptCompile = function() {
 	 stream.pipe(gulp.dest('./public/'))
 	     .on('end', function(e) {
 	     	console.log('Compiled');
-	     })
+	     });
+}
+
+var styleCompile = function() {
+	gulp.src('./app/scss/throwback.scss')
+	   .pipe(sass())
+	   .pipe(concat('app.css'))
+	   .pipe(gulp.dest('./public'))
 }
 
 gulp.task('js', function() {
@@ -39,11 +47,16 @@ gulp.task('js', function() {
 
  
 gulp.task('sass', function () {
-    gulp.src('./scss/*.scss')
-        .pipe(sass())
-        .pipe(gulp.dest('./css'));
+	styleCompile();
 });
 
 
+gulp.task('watch', function() {
+  gulp.watch('./app/scss/**/*.scss', ['sass'], function() {
+  	console.log('Sass changed')
+  });
+  gulp.watch('./app/**/*.js', ['js']);
+});
 
-gulp.task('default', ['js'])
+
+gulp.task('default', ['watch', 'sass', 'js'])
