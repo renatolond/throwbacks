@@ -115,6 +115,28 @@ module.exports = (function(){
 				cb(results);
 			});
 
+		},
+		userValid: function(res) {
+			console.log(res);
+			if(res.user) return true;
+			if(res.error) return false;
+			return false;
+		},
+		userExists: function(username, cb) {
+			var _this = this;
+			var url = 'http://ws.audioscrobbler.com/2.0/?method=user.getinfo';
+			request
+			  .get(url)
+			  .query({
+			  	format: 'json',
+			  	user: username,
+			  	api_key: this.apiKey,
+			  })
+			  .end(function(err, data) {
+			  	if(err) return cb(false);
+			  	var isValid = _this.userValid(data.body);
+			  	return cb(isValid);
+			  });
 		}
 
 	};

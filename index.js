@@ -123,6 +123,18 @@ app.use('/get/:track_title', function(req, res){
   });
 });
 
+app.use('/user/:username/exists', function(req, res) {
+  console.log(req.params.username);
+  if(req.params.username) {
+    console.log(req.params.username);
+    
+     tb.userExists(req.params.username, function(exists) {
+      return res.json(exists);
+     });
+  }
+  
+})
+
 app.use('/make/playlist', function(req, res) {
 	if(!req.user) res.send('No user');
 	console.log(req.user.id);

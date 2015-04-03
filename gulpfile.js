@@ -5,12 +5,12 @@ var source = require('vinyl-source-stream');
 var streamify = require('gulp-streamify');
 var watchify = require('watchify');
 var sass = require('gulp-sass');
-var jsFile = './app/app.js';
+var jsFile = './app/index.js';
 var concat = require('gulp-concat');
 
 var scriptCompile = function() {
 	var bundle = watchify(browserify(jsFile, {
-	    extensions: ['.js']
+	    extensions: ['.js', '.jade']
 	  , debug: true
 	    // Required for watchify
 	  , cache: {}
@@ -26,7 +26,7 @@ var scriptCompile = function() {
 	     .on('error', function(e){
 	     	console.error('Error: ', e);
 	     })
-	     .pipe(source('app.js'))
+	     .pipe(source('index.js'))
 
 	 stream.pipe(gulp.dest('./public/'))
 	     .on('end', function(e) {
@@ -55,7 +55,7 @@ gulp.task('watch', function() {
   gulp.watch('./app/scss/**/*.scss', ['sass'], function() {
   	console.log('Sass changed')
   });
-  gulp.watch('./app/**/*.js', ['js']);
+  // gulp.watch('./app/**/*.js', ['js']);
 });
 
 

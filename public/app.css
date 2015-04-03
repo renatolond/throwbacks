@@ -1,5 +1,9 @@
 .button {
   background: green; }
 
+.spotify-login {
+  width: 250px;
+  height: auto; }
+
 body {
   font-family: 'Open Sans', 'Helvetica', sans-serif; }
