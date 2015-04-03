@@ -4,11 +4,9 @@ var date = require('../lib/date');
 var Input = require('../components/input');
 var DateInput = require('../components/dateinput');
 var Button = require('../components/button');
+var List = require('../components/track-list');
+
 var template = require('../templates/lastfm');
-var Collection = require('../collections/tracks');
-
-
-console.log(Backbone);
 
 module.exports = Backbone.View.extend({
   template: template,
@@ -78,7 +76,6 @@ module.exports = Backbone.View.extend({
 
   getPickerValues: function() {
     var items = $(this.ui.form).serializeArray();
-    console.log(items);
     var values = {};
     _.each(items, function(item){
       values[item.name] = date.getUnixTime(item.value);
@@ -89,20 +86,15 @@ module.exports = Backbone.View.extend({
   getListens: function(user, button) {
     var data = this.getPickerValues() || {};
     data = _.extend(data, user);
-    console.log(data);
 
-    var collection = new Collection({
-      url: '/from/' + data.from + '/to/' + data.to + '/for/' + data.user.id
+    var tracks = new List({
+      className: 'track-list',
+      listData: data,
+      button: button
     });
 
-    collection.on('sync', function(data) {
-      console.log('FETCHED', data);
-      button.trigger('end');
-    });
-
-    // Render the view for the collection and then fetch it?
-
-    collection.fetch();
+    $('.lastfm-list', this.$el).html(tracks.el);
+    tracks.render();
   }
 
 });

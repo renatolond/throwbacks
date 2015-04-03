@@ -1,0 +1,6 @@
+li
+	img.track-image(src!=model.get('image')[0]['#text'])
+	strong.track-name!= model.get('name')
+	p.track-artist!= model.get('artist').name
+	- if (model.get('loved') == 1)
+		em.track-loved ❤
