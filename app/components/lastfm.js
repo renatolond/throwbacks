@@ -1,12 +1,21 @@
 var Backbone = require('backbone');
+var _ = require('underscore');
+var date = require('../lib/date');
 var Input = require('../components/input');
 var DateInput = require('../components/dateinput');
+var Button = require('../components/button');
 var template = require('../templates/lastfm');
+var Collection = require('../collections/tracks');
+
 
 console.log(Backbone);
 
 module.exports = Backbone.View.extend({
   template: template,
+  ui: {
+    form: '.lastfm-dates',
+    dates: '.lastfm-dates input'
+  },
   initialize: function(options) {
     this.$el.html(template(options));
   },
@@ -21,8 +30,9 @@ module.exports = Backbone.View.extend({
 
     $('.lastfm-input', this.$el).html(username.el); 
     
-    username.on('ready', function() {
+    username.on('ready', function(user) {
       _this.renderDatepickers();
+      _this.renderFetchButton(user);
     });
   },
 
@@ -34,8 +44,65 @@ module.exports = Backbone.View.extend({
       name: 'to'
     });
 
-    var els = $(from.el).add(to.el);
+    var els = $('<span>Fetch tracks from </span>').add(from.el).add('<span>to</span>').add(to.el);
     $('.lastfm-dates', this.$el).html(els);
+  },
+
+  // Pass in a custom validate function
+  renderFetchButton: function(user) {
+    var _this = this;
+    var fetch = new Button({
+      className: 'fetch-tracks',
+      label: 'Fetch',
+      pickers: $(this.ui.dates),
+      validate: this.validatePickers.bind(this)
+    });
+
+    fetch.on('start', function() {
+      _this.getListens(user, fetch);
+    });
+
+    $('.lastfm-fetch', this.$el).html(fetch.el);
+  },
+
+  validatePickers: function() {
+    var vals = [];
+    $(this.ui.dates).each(function(){
+      if($(this).val().length > 0) {
+        vals.push(true);
+      }
+    });
+    return vals.length === 2;
+  },
+
+
+  getPickerValues: function() {
+    var items = $(this.ui.form).serializeArray();
+    console.log(items);
+    var values = {};
+    _.each(items, function(item){
+      values[item.name] = date.getUnixTime(item.value);
+    });
+    return values;
+  },
+
+  getListens: function(user, button) {
+    var data = this.getPickerValues() || {};
+    data = _.extend(data, user);
+    console.log(data);
+
+    var collection = new Collection({
+      url: '/from/' + data.from + '/to/' + data.to + '/for/' + data.user.id
+    });
+
+    collection.on('sync', function(data) {
+      console.log('FETCHED', data);
+      button.trigger('end');
+    });
+
+    // Render the view for the collection and then fetch it?
+
+    collection.fetch();
   }
 
 });

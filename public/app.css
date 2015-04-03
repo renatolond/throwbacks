@@ -1,5 +1,5 @@
-.button {
-  background: green; }
+button.loading {
+  background: red; }
 
 .spotify-login {
   width: 250px;

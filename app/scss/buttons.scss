@@ -1,3 +1,6 @@
-.button {
-	background: green;
+button {
+
+	&.loading {
+		background: red;
+	}
 }
