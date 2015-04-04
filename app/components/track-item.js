@@ -5,7 +5,6 @@ var template = require('../templates/track-item');
 
 module.exports =  Backbone.View.extend({
   template: template,
-  tagName: 'li',
   className: 'track-item',
   
   initialize: function(options) {
