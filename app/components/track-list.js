@@ -8,14 +8,8 @@ var spotify = require('../lib/spotify');
 var date = require('../lib/date');
 
 module.exports =  Backbone.View.extend({
-  tagName: 'ul',
   className: 'track-list',
 
-  // events: {
-  //   'click': 'fetch'
-  // },
-
-  // Pass the username
   initialize: function(options) {
     var _this = this;
     this.options = options;
@@ -26,18 +20,26 @@ module.exports =  Backbone.View.extend({
       url: '/from/' + data.from + '/to/' + data.to + '/for/' + data.user.id
     });
 
-    this.listenTo(this.collection, 'sync', function(data) {
-      _.each(data.models, _this.renderItem.bind(_this));
-      this.renderSorting();
-      this.renderSendButton();
-      button.trigger('end');
-    });
-    
-    // collection sort event should wipe and re-render the models
+    this.listenTo(this.collection, 'sync', this.showElements.bind(this));
+  },
+
+  showElements: function(data) {
+    this.options.button.trigger('end');
+
+    if(data.length === 0) { 
+      return this.renderError('No tracks were found');
+    }
+    _.each(data.models, this.renderItem.bind(this));
+    this.renderSorting();
+    this.renderSendButton();
   },
 
   render: function() {
     this.collection.fetch();
+  },
+
+  renderError: function(message) {
+    this.$el.html('<span class="track-error">'+message+'</span>');
   },
 
   renderSendButton: function() {
@@ -77,13 +79,10 @@ module.exports =  Backbone.View.extend({
     var end =  new Date($('[name="to"]').val());
     var name = spotify.makePlaylistName(sortVal, start, end);
     var trackset = this.makeTrackset(name, items);
-
   },
 
   makeTrackset: function(name, tracks) {
     var _this = this;
-    console.log('Make trackset', this.collection);
-
     $.ajax({
       url: window.apiURL+"/make/playlist",
       contentType: 'application/json',
@@ -94,14 +93,13 @@ module.exports =  Backbone.View.extend({
       type: 'POST',
       dataType: 'json'
     }).done(function(data) {
-      console.log(data);
-      _this.renderPlaylist(data.uri);
+      _this.renderPlaylist(data.uri, name);
     });
   },
 
-  renderPlaylist: function(uri) {
+  renderPlaylist: function(uri, name) {
     if(!uri) return;
-    var string = '<iframe src="https://embed.spotify.com/?uri='+uri+'" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>';
+    var string = '<h3 class="playlist-name">'+name+'</h3><iframe src="https://embed.spotify.com/?uri='+uri+'" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>';
       this.$el.html(string);
   },
 
@@ -120,18 +118,11 @@ module.exports =  Backbone.View.extend({
   sortOptions:  [
     {
       label: 'Top',
-      value: 'top',
-      sort: function() {
-
-        console.log('sort top')
-      }
+      value: 'top'
     },
     {
       label: 'Random',
-      value: 'random',
-      sort: function() {
-        console.log('sort random');
-      }
+      value: 'random'
     }],
 
   sortMethods: {
@@ -148,12 +139,10 @@ module.exports =  Backbone.View.extend({
       }
     },
     random: function(tracks) {
-      console.log('Sort these', tracks);
       var random = _.filter(tracks, function(track){
         return !!track.uri;
       });
       random = _.sample(_.pluck(random, 'uri'), 20);
-      console.log('random', random);
       return random;
     }
   }
