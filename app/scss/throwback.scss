@@ -8,3 +8,7 @@
 body {
 	font-family: 'Open Sans', 'Helvetica', sans-serif;
 }
+
+*, *:after, *:before {
+	box-sizing: border-box;
+}

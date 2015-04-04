@@ -1,6 +1,7 @@
 var Backbone = require('backbone');
 var _ = require('underscore');
 var moment = require('moment');
+var utils = require('../lib/date');
 
 module.exports =  Backbone.View.extend({
   tagName: 'input',
@@ -33,11 +34,8 @@ module.exports =  Backbone.View.extend({
 
   },
 
-  getMonth: function(date) {
-    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    return months[date.getMonth()];
-  },
-
+  getMonth: utils.getMonth, 
+  
   humaniseDate: function(dateString) {
     var date = moment(dateString);
     console.log(date);

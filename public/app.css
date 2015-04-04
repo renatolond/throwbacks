@@ -1,9 +1,44 @@
 button.loading {
   background: red; }
 
+.track-list {
+  list-style: none;
+  border: 1px #ccc solid;
+  padding: 0;
+  margin: 0;
+  width: 500px; }
+
+.track-item {
+  text-indent: 0;
+  border-bottom: 1px #ccc solid; }
+  .track-item:last-child {
+    border: 0; }
+
+.track-image {
+  height: 60px;
+  width: 60px;
+  float: left;
+  margin-right: 10px; }
+
+.track-fade {
+  opacity: 0.5; }
+  .track-fade:after {
+    content: 'Not on spotify'; }
+
+.track-details {
+  width: 500px;
+  padding: 10px; }
+
+.track-artist {
+  padding: 0;
+  margin: 0; }
+
 .spotify-login {
   width: 250px;
   height: auto; }
 
 body {
   font-family: 'Open Sans', 'Helvetica', sans-serif; }
+
+*, *:after, *:before {
+  box-sizing: border-box; }

@@ -1,5 +1,7 @@
-li
-	img.track-image(src!=model.get('image')[0]['#text'])
+//- li.track-item(class!=(!model.get('uri') ? 'track-fade': ''))
+	//- Fade if the song isn't on spotify
+img.track-image(src!=model.get('image')[0]['#text'])
+.track-details
 	strong.track-name!= model.get('name')
 	p.track-artist!= model.get('artist').name
 	- if (model.get('loved') == 1)

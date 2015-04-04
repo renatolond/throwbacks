@@ -57,7 +57,7 @@ var input =  Backbone.View.extend({
       _this.renderInputError('That username doesn\'t exist!');
     });
 
-  }, 500)
+  }, 1000)
 
 });
 
