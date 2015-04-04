@@ -15,7 +15,6 @@ module.exports =  Backbone.View.extend({
   },
 
   initialize: function(options) {
-    console.log(options);
     this.$el.attr('name', options.name);
   },
 
@@ -26,19 +25,10 @@ module.exports =  Backbone.View.extend({
     // this.setText(date);
   },
 
-  setText: function(date) {
-    // this.$el.after('<span class="date-picker-label">'+this.humaniseDate(date)+'</span>')
-  },
-
-  parseDate: function() {
-
-  },
-
   getMonth: utils.getMonth, 
-  
+
   humaniseDate: function(dateString) {
     var date = moment(dateString);
-    console.log(date);
     return '';
   }
 

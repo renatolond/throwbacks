@@ -1,5 +1,4 @@
 var date = require('./date');
-console.log(date);
 
 module.exports = {
 	makePlaylistName: function(type, start, end) {

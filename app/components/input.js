@@ -52,7 +52,6 @@ var input =  Backbone.View.extend({
     var url = '/user/'+username+'/exists';
     
     $.get(url, function(user){
-      console.log(user);
       if(user.isValid) return _this.trigger('ready', user);
       _this.renderInputError('That username doesn\'t exist!');
     });

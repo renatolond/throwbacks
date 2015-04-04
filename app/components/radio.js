@@ -20,8 +20,4 @@ module.exports =  Backbone.View.extend({
   render: function() {
   	this.$el.after('<label">'+this.options.label+'</label>');
   }
-  // ,
-  // sort: function(e) {
-  // 	this.options.sort.call(null, e);
-  // }
 });
