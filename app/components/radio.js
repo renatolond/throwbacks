@@ -16,8 +16,11 @@ module.exports =  Backbone.View.extend({
   initialize: function(options) {
   	this.options = options;
     this.$el.attr('value', options.value);
+    if(options.checked) {
+      this.$el.attr('checked', 'checked');
+    }
   },
   render: function() {
-  	this.$el.after('<label">'+this.options.label+'</label>');
+  	this.$el.after('<label>'+this.options.label+'</label>');
   }
 });

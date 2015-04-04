@@ -1,0 +1,41 @@
+input[type="text"],
+input[type="date"] {
+	font-family: 'Open Sans';
+	width: 100%;
+	-webkit-appearance: none;
+	box-shadow: none;
+	height: 48px;
+	border: 1px #E6E7E8 solid;
+	padding-left: $spacing-small;
+	font-size: $font-size-medium;
+
+	&.invalid {
+		color: $color-pink;
+	}
+}
+
+.input-error {
+	background: $color-pink;
+	color: #fff;
+	font-size: $font-size-tiny;
+	padding: $spacing-tiny;
+	width: 100%;
+	display: block;
+	margin-bottom: $spacing-small;
+}
+
+.form-info {
+	font-size: $font-size-medium;
+	padding-top: $spacing-small;
+	padding-bottom: $spacing-small;
+	display: block;
+}
+
+input[type="radio"],
+label {
+	float: right;
+	font-size: 12px;
+	padding-left: 8px;
+	padding-right: 4px;
+	line-height: 20px;
+}

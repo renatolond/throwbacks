@@ -34,7 +34,7 @@ module.exports = Backbone.View.extend({
     });
   },
 
-  renderDatepickers: function(user) {
+  renderDatepickers: function() {
     var from = new DateInput({
       name: 'from'
     });
@@ -42,7 +42,7 @@ module.exports = Backbone.View.extend({
       name: 'to'
     });
 
-    var els = $('<span>Fetch tracks from </span>').add(from.el).add('<span>to</span>').add(to.el);
+    var els = $('<span class="form-info">Fetch tracks from </span>').add(from.el).add('<span class="form-info">to</span>').add(to.el);
     $('.lastfm-dates', this.$el).html(els);
   },
 

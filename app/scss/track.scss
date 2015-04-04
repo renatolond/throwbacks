@@ -1,14 +1,22 @@
 .track-list {
 	list-style:none;
-	border: 1px #ccc solid;
 	padding: 0;
 	margin: 0;
-	width: 500px;
+	width: 100%;
+	margin-top: $spacing-large;
+
+	iframe {
+		width: 100%;
+	}
 }
 
 .track-item {
 	text-indent: 0;
-	border-bottom: 1px #ccc solid;
+	border-bottom: 1px #f1f1f1 solid;
+	background: #fff;
+	position: relative;
+	float: left;
+	width: 100%;
 	&:last-child {
 		border: 0;
 	}
@@ -24,16 +32,41 @@
 .track-fade {
 	opacity: 0.5;
 	&:after {
-		content: 'Not on spotify';
+		content: 'N/A';
+		font-size: 10px;
+		position: absolute;
+		right: 8px;
+		top: 8px;
+		width: auto;
 	}
 }
 
 .track-details {
-	width: 500px;
-	padding: 10px;
+	width: 100%;
+	padding: $spacing-small;
 }
 
 .track-artist {
 	padding:0;
 	margin:0;
+	font-size: $font-size-tiny;
+}
+
+.track-name {
+	font-size: $font-size-small;
+	line-height: 18px;
+	display: block;
+	max-width: 70%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.track-loved {
+	font-style: normal;
+	position: absolute;
+	right: $spacing-small;
+	top: $spacing-small;
+	color: $color-pink;
+	font-size: $font-size-small;
 }

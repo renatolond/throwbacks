@@ -67,9 +67,13 @@ module.exports =  Backbone.View.extend({
 
     var radios = _.map(this.sortOptions, function(options){
       var view = _this.makeRadio(options);
-      _this.$el.append(view.el);
+      _this.$el.prepend(view.el);
       view.render();
     });
+
+
+    this.$el.prepend('<h3 class="section-header">Tracks</h3>')
+
   },
 
   sendToSpotify: function() {
@@ -83,6 +87,9 @@ module.exports =  Backbone.View.extend({
 
   makeTrackset: function(name, tracks) {
     var _this = this;
+  
+    if(tracks.length === 0) return this.renderError('No tracks are available to send, try a different date range');
+
     $.ajax({
       url: window.apiURL+"/make/playlist",
       contentType: 'application/json',
@@ -93,13 +100,14 @@ module.exports =  Backbone.View.extend({
       type: 'POST',
       dataType: 'json'
     }).done(function(data) {
+      console.log(data);
       _this.renderPlaylist(data.uri, name);
     });
   },
 
   renderPlaylist: function(uri, name) {
     if(!uri) return;
-    var string = '<h3 class="playlist-name">'+name+'</h3><iframe src="https://embed.spotify.com/?uri='+uri+'" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>';
+    var string = '<h3 class="playlist-name">'+name+'</h3><iframe src="https://embed.spotify.com/?uri='+uri+'" width="100%" height="380" frameborder="0" allowtransparency="true"></iframe>';
       this.$el.html(string);
   },
 
@@ -118,11 +126,13 @@ module.exports =  Backbone.View.extend({
   sortOptions:  [
     {
       label: 'Top',
-      value: 'top'
+      value: 'top',
+      checked: true
     },
     {
       label: 'Random',
-      value: 'random'
+      value: 'random',
+      checked: false
     }],
 
   sortMethods: {

@@ -12,7 +12,7 @@ module.exports =  Backbone.View.extend({
   initialize: function(options) {
     var _this = this;
     this.options = options;
-    $(this.$el).text(options.label)
+    $(this.$el).html('<span>'+options.label+'</span>');
    
     this.validate = this.options.validate;
     this.getData = this.options.getData;

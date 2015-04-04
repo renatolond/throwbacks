@@ -1,16 +1,134 @@
-button.loading {
-  background: red; }
+main {
+  width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+  min-height: 100vh;
+  padding-bottom: 16px; }
+
+header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-bottom: 18px;
+  background-image: url('/images/90s.jpg'); }
+
+.spotify-link {
+  display: block;
+  width: 100%;
+  text-align: center; }
+
+header img {
+  max-width: 290px;
+  height: auto;
+  margin: 0 auto; }
+
+footer {
+  height: 20px;
+  background: #13514C;
+  color: #fff; }
+  footer p {
+    padding: 0;
+    margin: 0;
+    font-size: 10px;
+    padding-left: 16px;
+    line-height: 20px;
+    float: left; }
+  footer a {
+    color: #fff; }
+
+.logout {
+  text-align: right;
+  color: #fff;
+  float: right;
+  font-size: 10px;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  padding-right: 16px;
+  padding-top: 0;
+  line-height: 20px; }
+
+@media screen and (min-width: 767px) {
+  main {
+    max-width: 400px;
+    margin: 0 auto; }
+  header img {
+    max-width: 490px; } }
+
+button {
+  cursor: pointer;
+  background: #27ADA8;
+  width: 100%;
+  border-radius: 0;
+  border: none;
+  color: #fff;
+  height: 42px;
+  margin-top: 24px;
+  font-size: 16px;
+  font-weight: 600; }
+  button span {
+    line-height: 40px; }
+  button.loading span:after {
+    content: '';
+    background-image: url('/images/loading.gif');
+    background-size: 20px 20px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    left: 8px; }
+
+input[type="text"], input[type="date"] {
+  font-family: 'Open Sans';
+  width: 100%;
+  -webkit-appearance: none;
+  box-shadow: none;
+  height: 48px;
+  border: 1px #E6E7E8 solid;
+  padding-left: 8px;
+  font-size: 16px; }
+  input[type="text"].invalid, input[type="date"].invalid {
+    color: #E6389A; }
+
+.input-error {
+  background: #E6389A;
+  color: #fff;
+  font-size: 10px;
+  padding: 4px;
+  width: 100%;
+  display: block;
+  margin-bottom: 8px; }
+
+.form-info {
+  font-size: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  display: block; }
+
+input[type="radio"], label {
+  float: right;
+  font-size: 12px;
+  padding-left: 8px;
+  padding-right: 4px;
+  line-height: 20px; }
 
 .track-list {
   list-style: none;
-  border: 1px #ccc solid;
   padding: 0;
   margin: 0;
-  width: 500px; }
+  width: 100%;
+  margin-top: 24px; }
+  .track-list iframe {
+    width: 100%; }
 
 .track-item {
   text-indent: 0;
-  border-bottom: 1px #ccc solid; }
+  border-bottom: 1px #f1f1f1 solid;
+  background: #fff;
+  position: relative;
+  float: left;
+  width: 100%; }
   .track-item:last-child {
     border: 0; }
 
@@ -23,22 +141,83 @@ button.loading {
 .track-fade {
   opacity: 0.5; }
   .track-fade:after {
-    content: 'Not on spotify'; }
+    content: 'N/A';
+    font-size: 10px;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    width: auto; }
 
 .track-details {
-  width: 500px;
-  padding: 10px; }
+  width: 100%;
+  padding: 8px; }
 
 .track-artist {
   padding: 0;
-  margin: 0; }
+  margin: 0;
+  font-size: 10px; }
+
+.track-name {
+  font-size: 12px;
+  line-height: 18px;
+  display: block;
+  max-width: 70%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap; }
+
+.track-loved {
+  font-style: normal;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  color: #E6389A;
+  font-size: 12px; }
+
+h1, h2, h3, h4, h5, h6 {
+  padding: 0;
+  margin: 0;
+  font-family: 'Open Sans'; }
 
 .spotify-login {
   width: 250px;
   height: auto; }
 
+.section-header, .playlist-name {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  padding-top: 24px;
+  padding-bottom: 18px; }
+  .section-header.light, .light.playlist-name {
+    font-weight: normal; }
+
+.track-list .section-header, .track-list .playlist-name {
+  display: inline-block;
+  float: left;
+  overflow: hidden;
+  padding-top: 0; }
+
+.section-info {
+  font-size: 16px;
+  font-weight: 600;
+  padding-top: 24px;
+  padding-bottom: 24px; }
+  .section-info em {
+    color: #E6389A;
+    font-style: normal; }
+
+.text-center {
+  text-align: center; }
+
 body {
-  font-family: 'Open Sans', 'Helvetica', sans-serif; }
+  font-family: 'Open Sans', 'Helvetica', sans-serif;
+  background-image: url('/images/90s-white.jpg'); }
+
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%; }
 
 *, *:after, *:before {
   box-sizing: border-box; }

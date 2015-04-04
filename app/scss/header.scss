@@ -1,0 +1,70 @@
+main {
+	width: 100%;
+	padding-left: 16px;
+	padding-right: 16px;
+	min-height: 100vh;
+	padding-bottom: 16px;
+}
+
+header {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	padding-bottom: 18px;
+	background-image: url('/images/90s.jpg')
+}
+
+.spotify-link {
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+header img {
+	max-width: 290px;
+	height: auto;
+	margin: 0 auto;
+}
+
+footer {
+	height: 20px;
+	background: #13514C;
+	color: #fff;
+
+	p {
+		padding: 0;
+		margin: 0;
+		font-size: 10px;
+		padding-left: 16px;
+		line-height: 20px;
+		float: left;
+	}
+
+	a {
+		color: #fff;
+	}
+}
+.logout {
+	text-align: right;
+	color: #fff;
+	float: right;
+	font-size: 10px;
+	text-decoration: none;
+	padding: 0;
+	margin: 0;
+	padding-right: 16px;
+	padding-top: 0;
+	line-height: 20px;
+}
+
+@media screen and (min-width: 767px) {
+	main {
+		max-width: 400px;
+		margin: 0 auto;	
+	}
+
+	header img {
+		max-width: 490px;
+	}
+	
+}

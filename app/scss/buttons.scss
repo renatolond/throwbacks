@@ -1,6 +1,29 @@
 button {
+	cursor: pointer;
+	background: $color-green;
+	width: 100%;
+	border-radius: 0;
+	border: none;
+	color: #fff;
+	height: 42px;
+	margin-top: $spacing-large;
+	font-size: $font-size-medium;
+	font-weight: 600;
+	span {
+		line-height: 40px;
+	}
 
 	&.loading {
-		background: red;
+		span:after {
+			content: '';
+			background-image: url('/images/loading.gif');
+			background-size: 20px 20px;
+			width: 20px;
+			height: 20px;
+			display: inline-block;
+			position: relative;
+			top: 3px;
+			left: 8px;
+		}
 	}
 }

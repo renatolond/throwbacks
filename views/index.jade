@@ -4,23 +4,25 @@ html
     title throwbacks
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,300,700' rel='stylesheet' type='text/css')
     link(rel='stylesheet', type='text/css', href='app.css')
+    meta(name="viewport" content="width=device-width, initial-scale=1")
   body
     header
-      a(href='/logout') Logout
+      img(src='/images/logo.png')
     main 
       if !user 
-        h1 Log in
-        a(href='/auth/spotify')
-          img.spotify-login(src="images/log_in-mobile.png")
+        h1.section-header.text-center Throwbacks is an app that lets you create Spotify playlists based on your Last.fm history. 
+        a.spotify-link(href='/auth/spotify')
+          img.spotify-login(src="/images/log_in-mobile.png")
       else
-        p You’re logged in as 
+        h2.section-info You’re logged in as 
           em!= user.username 
-          | , enter your username for Last.fm to continue (needs to be public).    
+          | , enter a public Last.fm username to continue.    
         
         .lastfm
-
-    .playlist
-    ul
+    footer
+      p Made by 
+        a(href="mailto:hello@tamara.cool") Tamara Chahine
+      a.logout(href='/logout') Logout
   script(type='text/javascript').
     window.apiURL = 'http://localhost:8888';
   script(type='text/javascript', src='pikaday.js')
