@@ -5,12 +5,32 @@ html
     link(href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,300,700' rel='stylesheet' type='text/css')
     link(rel='stylesheet', type='text/css', href='app.css')
     meta(name="viewport" content="width=device-width, initial-scale=1")
+    link(rel="apple-touch-icon", sizes="57x57", href="/apple-touch-icon-57x57.png")
+    link(rel="apple-touch-icon", sizes="60x60", href="/apple-touch-icon-60x60.png")
+    link(rel="apple-touch-icon", sizes="72x72", href="/apple-touch-icon-72x72.png")
+    link(rel="apple-touch-icon", sizes="76x76", href="/apple-touch-icon-76x76.png")
+    link(rel="apple-touch-icon", sizes="114x114", href="/apple-touch-icon-114x114.png")
+    link(rel="apple-touch-icon", sizes="120x120", href="/apple-touch-icon-120x120.png")
+    link(rel="apple-touch-icon", sizes="144x144", href="/apple-touch-icon-144x144.png")
+    link(rel="apple-touch-icon", sizes="152x152", href="/apple-touch-icon-152x152.png")
+    link(rel="apple-touch-icon", sizes="180x180", href="/apple-touch-icon-180x180.png")
+    link(rel="icon", type="image/png", href="/favicon-32x32.png", sizes="32x32")
+    link(rel="icon", type="image/png", href="/android-chrome-192x192.png", sizes="192x192")
+    link(rel="icon", type="image/png", href="/favicon-96x96.png", sizes="96x96")
+    link(rel="icon", type="image/png", href="/favicon-16x16.png", sizes="16x16")
+    link(rel="manifest", href="/manifest.json")
+    meta(name="msapplication-TileColor", content="#27ADA8")
+    meta(name="msapplication-TileImage", content="/mstile-144x144.png")
+    meta(name="theme-color", content="#27ADA8")
+    meta(property="og:url" content="http://throwbacks.cool")
+    meta(property="og:description" content="Throwbacks is an app that lets you create Spotify playlists based on your Last.fm listening history")
+    meta(property="og:description" content="http://throwbacks.cool/images/fb.png")
   body
     header
       img(src='/images/logo.png')
     main 
       if !user 
-        h1.section-header.text-center Throwbacks is an app that lets you create Spotify playlists based on your Last.fm history. 
+        h1.section-header.text-center Throwbacks is an app that lets you create Spotify playlists based on your Last.fm listening history
         a.spotify-link(href='/auth/spotify')
           img.spotify-login(src="/images/log_in-mobile.png")
       else
@@ -21,7 +41,7 @@ html
         .lastfm
     footer
       p Made by 
-        a(href="mailto:hello@tamara.cool") Tamara Chahine
+        a(href="http://github.com/") Tamara Chahine
       a.logout(href='/logout') Logout
   script(type='text/javascript').
     window.apiURL = 'http://localhost:8888';
