@@ -17,7 +17,7 @@ module.exports =  Backbone.View.extend({
     var button = this.options.button;
 
     this.collection = new Collection({
-      url: '/from/' + data.from + '/to/' + data.to + '/for/' + data.user.id
+      url: '/from/' + data.from + '/to/' + data.to + '/for/' + data.user.name
     });
 
     this.listenTo(this.collection, 'sync', this.showElements.bind(this));

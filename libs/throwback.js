@@ -10,7 +10,8 @@ module.exports = (function(){
 	var app = function(){
 		this.apiKey = config.apiKey;
 		this.host = config.host;
-		this.apiURL = 'http://ws.audioscrobbler.com/2.0/';
+		this.lastFMApiKey = config.lastFMApiKey
+		this.apiURL = 'http://ws.audioscrobbler.com/2.0/?api_key='+this.lastFMApiKey;
 	};
 
 	app.prototype = {
@@ -124,7 +125,7 @@ module.exports = (function(){
 		},
 		userExists: function(username, cb) {
 			var _this = this;
-			var url = 'http://ws.audioscrobbler.com/2.0/?method=user.getinfo';
+			var url = 'http://ws.audioscrobbler.com/2.0/?method=user.getinfo&api_key='+this.lastFMApiKey;
 			request
 			  .get(url)
 			  .query({
